@@ -22,7 +22,7 @@ import DragableTree from '~/components/DragableTree.vue'
 export default {
   components: { DragableTree },
   async asyncData({ $axios }) {
-    const tree = await $axios.$get('http://localhost:3001/work-items/tree', {
+    const tree = await $axios.$get('/work-items/tree', {
       params: {
         query: {},
       },
@@ -43,10 +43,7 @@ export default {
         generateIndex(this.tree)
 
         const link = { from: newPos.ctx.parent._id, to: oldPos.item._id }
-        const result = await this.$axios.$post(
-          'http://localhost:3001/relations/add',
-          link
-        )
+        const result = await this.$axios.$post('/relations/add', link)
         console.log(link, result)
       } catch (error) {
         this.tree = backup
